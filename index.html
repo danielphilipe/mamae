@@ -1,253 +1,369 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feliz Dia das Mães</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Dia das Mães</title>
+  <link rel="icon" href="data:image/svg+xml,
     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
       <text y='50%' x='50%' dy='.35em' text-anchor='middle' font-size='28'>❤️</text>
     </svg>">
-    <!-- box icons -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <style>
+    :root {
+      --bg-color: #081b29;
+      --main-color: #d04e4e;
+      --text-color: #333;
+      --second-text-color: #555;
+      --white-color: #d04e4e;
+      --cover-color: linear-gradient(45deg, #d04e4e, #f2acac);
+      --pages-color: linear-gradient(90deg, #fff, #ddd);
+      --border: .125rem solid #d04e4e;
+      --box-shadow: 0 0 .6rem rgba(0, 0, 0, .2);
+    }
+
+    .first {
+      background: var(--cover-color);
+    }
+
+    .last {
+      background: var(--pages-color);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Blocos full-screen com animação de fade-in */
+    .block {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #fff;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s ease-out, transform .6s ease-out;
+    }
+
+    .block:nth-child(odd) {
+      background-color: #FFF;
+    }
+
+    .block:nth-child(even) {
+      background-color: #FFF;
+    }
+
+    .visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .white-page {
+      align-items: self-start;
+      padding: 20px;
+    }
+
+    p {
+      color: black !important;
+      font-family: 'ROBOTO', cursive;
+      font-size: 22px;
+    }
+
+    /* Container de texto e imagem */
+    .textBook {
+      text-align: center;
+      max-width: 90%;
+      width: 100%;
+    }
+
+    .imageBook img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1rem auto 0;
+      box-shadow: var(--box-shadow);
+      border: var(--border);
+      border-radius: .5rem;
+    }
+
+    .block.white-page {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px;
+      gap: 2rem;
+      /* espaçamento entre texto e imagem */
+    }
+
+    .white-page p {
+      color: black !important;
+      font-family: 'Roboto', cursive;
+      font-size: 22px;
+      /* opcional: um espaçamento extra abaixo do texto */
+      margin-bottom: 1rem;
+    }
+
+    .imageBook img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      /* mantém sua borda e sombra */
+      box-shadow: var(--box-shadow);
+      border: var(--border);
+      border-radius: .5rem;
+
+    }
+
+    .column-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* centraliza horizontalmente */
+      justify-content: center;
+      /* opcional, se quiser centralizar verticalmente dentro do bloco */
+      padding: 20px;
+      gap: 1.5rem;
+      /* espaço entre texto e imagem */
+      text-align: center;
+      /* centraliza o texto */
+    }
+
+    .column-layout .imageBook img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      /* garante centralização da imagem */
+    }
+
+    /* Faz o container das duas imagens virar um row flex e centralizar */
+    .imageRow {
+      display: flex;
+      gap: 1rem;
+      /* espaço entre as imagens */
+      justify-content: center;
+      /* centraliza o conjunto */
+      flex-wrap: wrap;
+      /* quebra em outra linha se necessário */
+      width: 100%;
+    }
+
+    /* Cada imagem ocupa até metade menos o gap */
+    .imageRow img {
+      flex: 1 1 calc(50% - 1rem);
+      max-width: calc(50% - 1rem);
+      height: auto;
+      display: block;
+      box-shadow: var(--box-shadow);
+      border: var(--border);
+      border-radius: .5rem;
+    }
+
+    /* bloco 5: centraliza vertical e horizontalmente */
+    .block5 {
+      display: flex;
+      /* já é flex, mas reforça */
+      align-items: center;
+      /* centra verticalmente */
+      justify-content: center;
+      /* centra horizontalmente */
+      padding: 20px 0;
+      /* um respiro topo/baixo */
+    }
+
+    /* container que limita a largura da imagem */
+    .block5 .largeImage {
+      width: 90%;
+      /* ocupa 90% da largura da viewport */
+      max-width: 800px;
+      /* no máximo 800px de largura */
+      max-height: 90vh;
+      /* até 90% da altura da viewport */
+      margin: 0 auto;
+      align-self: center;
+      /* centraliza no container */
+    }
+
+    /* imagem fluida dentro do container */
+    .block5 .largeImage img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: .5rem;
+      box-shadow: var(--box-shadow);
+      border: var(--border);
+      object-fit: contain;
+      /* garante proporção correta */
+    }
+  </style>
 </head>
 
 <body>
+  <div class="block first">
+    <div class="textBook imageBook">
+      <h1>A mãe do ano</h1>
+      <!-- imagem sem width/height fixos -->
+      <img src="images/foto-mamae.jpg" alt="Mamãe sorrindo">
+    </div>
+  </div>
 
-    <div class="wrapper">
-        <div class="cover cover-left">
+  <!-- demais blocos -->
+  <div class="block white-page last">
+    <div class="">
+      <p>Oi, mamãe.<br>Pedi para o papai fazer esse site pra você.<br>Nele vou mostrar tudo que
+        eu sinto <br>E penso sobre você: <strong>a melhor mãe do mundo.</strong></p>
+    </div>
 
-            <h1 class="textBook"> A mãe do ano</h1>
+    <div class="imageBook"><img src="images/foto-mamae1.jpg" alt="imagem da mãe">
+      ❤️❤️❤️❤️
+    </div>
+  </div>
+  <div class="block white-page column-layout first">
+    <div>
+      <p style="color: white !important;">Mesmo quando você já tinha dito que não queria ser mãe, você me acolheu.</p>
+    </div>
+    <div class="imageBook">
+      <img src="images/foto-mamae2.jpg" alt="imagem da mãe">
+    </div>
+  </div>
 
-            <div class="imageBook"><img src="images/foto-mamae.jpg" alt="Mamãe sorrindo" width="400" height="500"></div>
+  <div class="block white-page column-layout last" style="justify-content: start;">
+    <div>
+      <p>Mesmo com medo, mesmo com dúvidas, você me escolheu...</p>
+    </div>
+    <div class="imageRow">
+      <img src="images/foto-mamae3.jpg" alt="imagem da mãe">
+      <img src="images/foto-mamae4.jpg" alt="imagem da mãe">
+    </div>
 
-            <span class="number-page" hidden>0</span>
+    <div>
+      <p>Desde o comecinho, quando eu estava dentro da sua barriga,
+        você já me amava...</p>
+    </div>
+  </div>
 
-            <!-- next button -->
-            <span class="nextprev-btn back" style="bottom: 1.9rem !important;" data-page="turn-0">
-                <i class='bx bx-chevron-right' style="transform: rotateY(180deg);"></i>
-            </span>
-        </div>
-        <div class="cover cover-right">
+  <div class="block white-page block5 first">
+    <div class="largeImage">
+      <img src="images/foto-mamae6.jpg" alt="Momento especial com a mamãe">
+    </div>
+  </div>
 
-            <span class="number-page" hidden>7</span>
+  <div class="block white-page column-layout last" style="justify-content: start;">
+    <div>
+      <p>Me dava carinho, falava comigo,
+        me fazia sentir seguro, mesmo sem me ver.</p>
+    </div>
+    <div class="imageRow">
+      <img src="images/foto-mamae5.jpg" alt="imagem da mãe">
+      <img src="images/foto-mamae4.jpg" alt="imagem da mãe">
+    </div>
+  </div>
 
-            <!-- next button -->
-            <span class="nextprev-btn back" style="bottom: 1.9rem !important;" data-page="turn-7">
-                <i class='bx bx-chevron-left'></i>
-            </span>
-        </div>
+  <div class="block first">
+    <div class="textBook imageBook">
+      <h1>E quando eu finalmente cheguei ...</h1>
+      <!-- imagem sem width/height fixos -->
+    </div>
+  </div>
 
-        <div class="book">
-
-            <!-- page 1 & 2 -->
-            <div class="book-page page-right turn" id="turn-1">
-                <!-- page 1 (work experience) -->
-                <div class="page-front">
-                    <div class="workeduc-box">
-                        <p>Oi, mamãe.<br>Pedi para o papai fazer esse livrinho pra você.<br>Esse livro mostra tudo que
-                            eu sinto <br>E penso sobre você:  <strong>a melhor mãe do mundo.</strong></p>
-                        <div class="imageBookInside"><img src="images/foto-mamae1.jpg" alt="imagem da mãe" width="300"
-                                height="400">
-                            <h1>❤️❤️❤️❤️❤️❤️❤️</h1>
-                        </div>
-                    </div>
-
-                    <span class="number-page">1</span>
-
-                    <!-- next button -->
-                    <span class="nextprev-btn" data-page="turn-1">
-                        <i class='bx bx-chevron-right'></i>
-                    </span>
-                </div>
-
-                <!-- page 2 (education) -->
-                <div class="page-back">
-
-                    <div class="workeduc-box">
-
-
-                        <div class="workeduc-content">
-                            <p>Mesmo quando você já tinha dito que não queria ser mãe,
-                                você me acolheu.
-                            </p>
-                        </div>
-                        <div style="display: flex;">
-                            <div class="imageBookInside"><img src="images/foto-mamae3.jpg" alt="imagem da mãe"
-                                    width="200" height="220"></div>
-                            <div class="imageBookInside"><img src="images/foto-mamae4.jpg" alt="imagem da mãe"
-                                    width="200" height="220"></div>
-                        </div>
-
-                        <div class="workeduc-content">
-                            <p>Mesmo com medo, mesmo com dúvidas,
-                                você me escolheu.</p>
-                        </div>
-
-                    </div>
-                    <div style="display: flex;">
-                        <div class="imageBookInside"><img src="images/foto-mamae2.jpg" alt="imagem da mãe" width="200"
-                                height="180"></div>
-                        <div class="imageBookInside"><img src="images/foto-mamae5.jpg" alt="imagem da mãe" width="200"
-                                height="180"></div>
-                    </div>
-                    <span class="number-page">2</span>
-
-                    <!-- prev button -->
-                    <span class="nextprev-btn back" data-page="turn-1">
-                        <i class='bx bx-chevron-left'></i>
-                    </span>
-                </div>
-            </div>
-
-            <!-- page 3 & 4 -->
-            <div class="book-page page-right turn" id="turn-2">
-                <!-- page 3 (my services) -->
-                <div class="page-front">
-                    <div class="workeduc-box">
-
-
-                        <div class="workeduc-content">
-                            <p>Desde o comecinho, quando eu estava dentro da sua barriga,
-                                você já me amava.</p>
-                        </div>
-
-                        <div class="imageBookInside"><img src="images/foto-mamae6.jpg" alt="imagem da mãe" width="300"
-                                height="400"></div>
-
-                        <div class="workeduc-content">
-                            <p>Me dava carinho, falava comigo,
-                                me fazia sentir seguro, mesmo sem me ver.</p>
-                        </div>
-
-
-                    </div>
-
-                    <span class="number-page">3</span>
-
-                    <!-- next button -->
-                    <span class="nextprev-btn" data-page="turn-2">
-                        <i class='bx bx-chevron-right'></i>
-                    </span>
-                </div>
-
-                <!-- page 4 (my skills) -->
-                <div class="page-back">
-                    <div class="workeduc-box">
-
-
-                        <div class="workeduc-content">
-                            <p>E quando eu finalmente cheguei,
-                                você me recebeu com os braços mais quentinhos do mundo,
+  <div class="block white-page column-layout last">
+    <div>
+      <p>Você me recebeu com os braços mais quentinhos do mundo,
                                 com um olhar que parecia dizer:
-                                "Você é meu. Eu sou sua."
-                            </p>
-                        </div>
-                        <div class="imageBookInside"><img src="images/foto-mamae7.jpg" alt="imagem da mãe" width="400"
-                                height="400"></div>
+                                "Você é meu. Eu sou sua."</p>
+    </div>
+    <div class="imageBook">
+      <img src="images/foto-mamae7.jpg" alt="imagem da mãe">
+    </div>
+  </div>
 
+      <div class="block white-page column-layout first" style="justify-content: start;">
+    <div>
+      <p style="color: white !important;">Desde então , você me ensina, me protege, me alimenta,
+                                me dá bronca quando precisa</p>
+    </div>
+    <div class="imageRow">
+      <img src="images/foto-mamae9.jpg" alt="imagem da mãe">
+      <img src="images/foto-mamae12.jpg" alt="imagem da mãe">
+    </div>
 
-                    </div>
-
-                    <span class="number-page">4</span>
-
-                    <!-- prev button -->
-                    <span class="nextprev-btn back" data-page="turn-2">
-                        <i class='bx bx-chevron-left'></i>
-                    </span>
-                </div>
-            </div>
-
-            <!-- page 5 & 6 -->
-            <div class="book-page page-right turn" id="turn-3">
-                <!-- page 5 (latest project or my portfolio) -->
-                <div class="page-front">
-                    <div class="workeduc-box">
-
-
-                        <div class="workeduc-content">
-                            <p>Você me ensina, me protege, me alimenta,
-                                me dá bronca quando precisa —
-                                mas até nisso, eu vejo amor.
-                                Porque você quer me ver crescer.
-                            </p>
-                        </div>
-                        <div style="display: flex;">
-                            <div class="imageBookInside"><img src="images/foto-mamae9.jpg" alt="imagem da mãe"
-                                    width="200" height="180"></div>
-                            <div class="imageBookInside"><img src="images/foto-mamae12.jpg" alt="imagem da mãe"
-                                    width="200" height="180"></div>
-                        </div>
-
-                        <div class="workeduc-content">
-                            <p>Mamãe, você é minha heroína,
-                                minha amiga, meu colo preferido.
-                                Quando eu penso em amor,
-                                é você que me vem na cabeça.</p>
-                        </div>
-
-                    </div>
-                    <div style="display: flex;">
-                        <div class="imageBookInside"><img src="images/foto-mamae10.jpg" alt="imagem da mãe" width="200"
-                                height="180"></div>
-                        <div class="imageBookInside"><img src="images/foto-mamae11.jpg" alt="imagem da mãe" width="200"
-                                height="180"></div>
-                    </div>
-
-                    <span class="number-page">5</span>
-
-                    <!-- next button -->
-                    <span class="nextprev-btn" data-page="turn-3">
-                        <i class='bx bx-chevron-right'></i>
-                    </span>
-                </div>
-
-                <!-- page 6 (contact me) -->
-                <div class="page-back">
-                    <div class="workeduc-box">
-
-
-                        <div class="workeduc-content">
-                            <p>
-                                Você é a Mãe do Ano,
-                                não porque ganhou um prêmio,
-                                mas porque ganhou meu coração.
-                                E isso, ninguém nunca vai tirar de você.
-
-                            </p>
-                        </div>
-                        <div class="imageBookInside"><img src="images/foto-mamae13.jpg" alt="imagem da mãe" width="400"
-                                height="400"></div>
-
-                        <p>
-                            Te amo muito.
-                            Com todo meu coração de criança.
-                            Assinado:
-                            <strong>Nicolas (com a ajuda do papai)</strong>
-                        </p>
-                    </div>
-
-                    <span class="number-page">6</span>
-
-                    <!-- prev button -->
-                    <span class="nextprev-btn back" data-page="turn-3">
-                        <i class='bx bx-chevron-left'></i>
-                    </span>
-
-                </div>
-            </div>
-
-
-
-        </div>
+    <div>
+      <p style="color: white !important;"> mas até nisso, eu vejo amor.
+                                Porque você quer me ver crescer.</p>
     </div>
 
 
-    <script src="script.js"></script>
+  </div>
+    <div class="block white-page column-layout last" style="justify-content: start;">
+    <div>
+      <p>Mamãe, você é minha heroína,
+                                minha amiga, meu colo preferido.
+                                Quando eu penso em amor,
+                                é você que me vem na cabeça.</p>
+    </div>
+    <div class="imageRow">
+      <img src="images/foto-mamae10.jpg" alt="imagem da mãe">
+      <img src="images/foto-mamae11.jpg" alt="imagem da mãe">
+    </div>
+  </div>
 
+  <div class="block white-page column-layout first">
+    <div>
+      <p style="color: white !important;">Você é a Mãe do Ano,
+                                não porque ganhou um prêmio,
+                                mas porque ganhou meu coração.
+                                E isso, ninguém nunca vai tirar de você.</p>
+    </div>
+    <div class="imageBook">
+      <img src="images/foto-mamae13.jpg" alt="imagem da mãe">
+    </div>
+  </div>
+
+
+  <div class="block last">
+    <div class="textBook imageBook">
+      <h4 style="color: black !important;">❤️❤️❤️❤️<br>Te amo muito.
+                            Com todo meu coração de criança.<br><br><br><br>
+                            Assinado:
+                            <strong>Nicolas (com a ajuda do papai)<br>❤️❤️❤️❤️</strong></h4>
+      <!-- imagem sem width/height fixos -->
+    </div>
+  </div>
+
+  <div class="block first">
+    <div class="textBook imageBook">
+      <h1>FIM!!!</strong></h1>
+      <!-- imagem sem width/height fixos -->
+    </div>
+  </div>
+
+  <!-- ... até o bloco 8 ... -->
+
+  <script>
+    const blocks = document.querySelectorAll('.block');
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    blocks.forEach(block => observer.observe(block));
+  </script>
 </body>
 
 </html>
